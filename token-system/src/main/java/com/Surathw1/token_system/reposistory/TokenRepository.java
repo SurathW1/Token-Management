@@ -2,15 +2,17 @@ package com.Surathw1.token_system.reposistory;
 
 
 import com.Surathw1.token_system.entity.Token;
+import com.Surathw1.token_system.entity.Token.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
-public interface TokenRepository extends JpaRepository<Token, Integer> {
+public interface TokenRepository extends JpaRepository<Token, String> {
 
     // Find tokens by status
     List<Token> findByStatus(String status);
@@ -30,4 +32,6 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
             @Param("status") String status,
             @Param("eventName") String eventName
     );
+
+
 }
