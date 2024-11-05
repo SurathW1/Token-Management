@@ -45,6 +45,7 @@ public class Token {
     private String vendorId;
 
     private String customerId;
+    private Long id;
 
     // No-arg constructor required by JPA
     public Token() {
@@ -52,6 +53,10 @@ public class Token {
         this.createdAt = LocalDateTime.now();
         this.lastModifiedAt = LocalDateTime.now();
         this.status = Status.AVAILABLE;
+    }
+
+    public void setId(long id) {
+        this.id=id;
     }
 
     public enum Status {

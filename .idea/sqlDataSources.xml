@@ -7,5 +7,11 @@
         <node kind="database" negative="1" />
       </scope>
     </mapping>
+    <mapping uuid="dc8f2456-0b57-4ac5-82aa-a7899b1b3d1c" name="token101@localhost Mapping">
+      <data-sources db="f83878cf-0e62-437f-b630-a300cf591a90" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
   </component>
 </project>
