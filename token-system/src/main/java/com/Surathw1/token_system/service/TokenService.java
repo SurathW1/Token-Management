@@ -15,14 +15,27 @@ import java.util.*;
 public class TokenService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String tokenFilePath = "data/tokens.json"; // Specify the file path for persistence
-    private final Map<Long,Token> ticketStore=new HashMap<>();//In-Memory store to hold Token Objects, with Ticket ID as the Key
+    private final Map<Long,Token> tokenStore=new HashMap<>();//In-Memory store to hold Token Objects, with Ticket ID as the Key
 
 
 //Counter to assign Unique ID'S to each Ticket
     private long currentId=1;
-    public Token addToken(Token token) {
+    public synchronized Token addToken(Token token) {
+        if (token == null) {
+            throw new IllegalArgumentException("Token cannot be null");
+        }
+
+        // Optionally, check if the ticketId already exists
+        if (tokenStore.containsKey(token.getTicketId())) {
+            throw new IllegalArgumentException("Token with this ticketId already exists");
+        }
+
+        // Set the unique ID and store the token
         token.setId(currentId++);
+        tokenStore.put(token.getTicketId(), token);
+        return token;
     }
+
     // Ensure the data directory exists for token storage
     public TokenService() {
         File directory = new File("data");
@@ -34,7 +47,7 @@ public class TokenService {
     // Create a new token
     public synchronized Token createToken(Token token) throws IOException {
         // Generate a unique ticket ID if not provided
-        token.setTicketId(UUID.randomUUID().toString());
+        token.setTicketId(Long.parseLong(UUID.randomUUID().toString()));
         token.setCreatedAt(LocalDateTime.now());
         token.setLastModifiedAt(LocalDateTime.now());
 
