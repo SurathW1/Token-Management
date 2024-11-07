@@ -8,6 +8,7 @@ public class Vendor implements Runnable {
     private final BlockingQueue<Token>ticketPool;
     private final int ticketsPerRelease;
     private final int releaseInterval;
+    private volatile boolean running = true;
 
     public Vendor(BlockingQueue<Token> ticketPool, int ticketsPerRelease, int releaseInterval) {
         this.ticketPool = ticketPool;
@@ -15,6 +16,9 @@ public class Vendor implements Runnable {
         this.releaseInterval = releaseInterval;
     }
 
+    public void stop(){
+        running = false;
+    }
     @Override
     public void run() {
         while (true) {
@@ -28,6 +32,7 @@ public class Vendor implements Runnable {
             } catch (InterruptedException e) {
 
                 Thread.currentThread().interrupt();
+                running = false;
             }
         }
     }

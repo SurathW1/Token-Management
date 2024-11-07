@@ -1,20 +1,25 @@
 package com.Surathw1.token_system.entity;
 
-import org.junit.platform.commons.logging.LoggerFactory;
+
 
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Logger;
+
 
 
 public class Customer implements Runnable {
 
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(Customer.class);
+
     private final BlockingQueue<Token> ticketPool;
     private final int retrievalInterval;
+    private volatile boolean running = true;
 
     public Customer(BlockingQueue<Token> ticketPool, int retrievalInterval) {
         this.ticketPool = ticketPool;
         this.retrievalInterval = retrievalInterval;
+    }
+
+    public void stop() {
+        running = false;
     }
 
     @Override
@@ -27,6 +32,7 @@ public class Customer implements Runnable {
             } catch (InterruptedException e) {
 
                 Thread.currentThread().interrupt();
+                running = false;
             }
         }
     }

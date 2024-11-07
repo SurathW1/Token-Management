@@ -1,0 +1,17 @@
+server:
+  port: 8080                    # Define server port (default is 8080)
+
+spring:
+  application:
+    name: TicketSystem           # Application name
+
+ticket-system:
+  total-tickets: 100             # Custom configuration for ticket system
+  ticket-release-rate: 10        # Rate at which tickets are released
+  customer-retrieval-rate: 5     # Rate at which customers retrieve tickets
+  max-ticket-capacity: 100       # Maximum capacity of the ticket pool
+
+logging:
+  level:
+    root: INFO                   # Set default logging level
+    com.Surathw1.token_system: DEBUG # Enable detailed logging for your package
