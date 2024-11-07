@@ -3,7 +3,7 @@ package com.Surathw1.token_system.entity;
 import java.util.concurrent.BlockingQueue;
 
 
-public class Vendor {
+public class Vendor implements Runnable {
 
     private final BlockingQueue<Token>ticketPool;
     private final int ticketsPerRelease;
